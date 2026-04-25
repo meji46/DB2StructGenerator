@@ -20,7 +20,7 @@ namespace DB2StructGenerator.StructGenerators
             Parallel.ForEach(definitions, pair =>
             {
                 using StreamWriter writer = new($"CsStructs\\{pair.Key.Replace("_", "")}Entry.cs");
-                writer.WriteLine("using DBFileReaderLib.Attributes;");
+                writer.WriteLine("using DBCD.IO.Attributes;");
                 writer.WriteLine();
                 writer.WriteLine($"namespace WowPacketParser.DBC.Structures.{GetExpansionNameForBuild(pair.Value.Item2.builds)}");
                 writer.WriteLine("{");
@@ -43,7 +43,7 @@ namespace DB2StructGenerator.StructGenerators
                         writer.WriteLine($"{tabSpaces}{tabSpaces}[Index({field.NoInline.ToString().ToLower()})]");
 
                     if (field.IsRelation && field.NoInline)
-                        writer.WriteLine($"{tabSpaces}{tabSpaces}[NonInlineRelation(typeof(u{field.FieldType}))]");
+                        writer.WriteLine($"{tabSpaces}{tabSpaces}[Relation(typeof(u{field.FieldType}), true)]");
 
                     writer.WriteLine($"{tabSpaces}{tabSpaces}public {field.FieldType} {field.FieldName};");
                 }
