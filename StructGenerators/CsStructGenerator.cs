@@ -19,7 +19,7 @@ namespace DB2StructGenerator.StructGenerators
 
             Parallel.ForEach(definitions, pair =>
             {
-                using StreamWriter writer = new($"CsStructs\\{pair.Key.Replace("_", "")}Entry.cs");
+                using StreamWriter writer = new(@$"CsStructs/{pair.Key.Replace("_", "")}Entry.cs");
                 writer.WriteLine("using DBFileReaderLib.Attributes;");
                 writer.WriteLine();
                 writer.WriteLine($"namespace WowPacketParser.DBC.Structures.{GetExpansionNameForBuild(pair.Value.Item2.builds)}");
